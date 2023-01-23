@@ -1,0 +1,2 @@
+# bashscriptsapmple
+sample bash script 
