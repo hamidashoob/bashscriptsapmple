@@ -51,7 +51,25 @@ case "$1" in
         ;; 
 
 -t) param="$2" 
-echo "Found the -t option, with parameter value $param" 
+	echo "Found the -t option, with parameter value $param" 
+	read -p "Please enter your Host IP: " HOST
+	read -p "Please enter Port: " PORT
+	read -p "please enter UserName: " USER
+	read -s -p "please enter PassWord: " PASSWORD
+	read -p "please enter source file/path: " LPATH
+       	read -p "please enter remote file/path: " RPATH
+
+	spawn /usr/bin/sftp -o Port=$PORT $USER@$HOST 
+	sleep 2 	
+	expect "password:" 
+	send "$PASSWORD\r" 
+	expect "sftp>" 
+	send "put $SOURCE_FILE $TARGET_DIR\r" 
+	expect "sftp>" 
+	send "bye\r" 
+	expect ""
+	
+
 shift ;; 
 
 -p) USE="$2" 
